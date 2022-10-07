@@ -14,6 +14,29 @@ builder.Services.AddDefaultIdentity<RazorPagesPizzaUser>(options => options.Sign
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
+var configuration = builder.Configuration;
+
+
+// Authentication with Google
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
+
+
+// Authentication with Facebook
+builder.Services.AddAuthentication().AddFacebook(facebookOptions =>
+{
+    facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+    facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+})
+    .AddMicrosoftAccount(microsoftOptions => 
+    {
+        microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+        microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
