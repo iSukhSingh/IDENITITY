@@ -13,9 +13,11 @@ builder.Services.AddDefaultIdentity<RazorPagesPizzaUser>(options => options.Sign
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+//builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 var configuration = builder.Configuration;
 
+/*
 
 // Authentication with Google
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
@@ -36,6 +38,8 @@ builder.Services.AddAuthentication().AddFacebook(facebookOptions =>
         microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
         microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
     });
+
+*/
 
 var app = builder.Build();
 
